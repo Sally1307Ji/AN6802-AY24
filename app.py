@@ -8,7 +8,7 @@ def index():
 @app.route("/main", methods=["POST", "GET"])
 def main():
     user_name = request.form.get("q")
-    return render_template("main.html", user_name=user_name)
+    return render_template("main.html")
 
 @app.route("/ethical_test",methods=["POST","GET"])
 def ethical_test():
