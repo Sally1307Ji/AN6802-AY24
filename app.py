@@ -29,7 +29,7 @@ def test_result():
 
 @app.route("/foodexp_pre",methods=["POST","GET"])
 def foodexp_pre():
-    q = request.form.get("q")
+    q = float(request.form.get("q"))
     return(render_template("foodexp_pre.html",r=(q*0.4851)+147.4))
 
 
