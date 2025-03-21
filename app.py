@@ -3,6 +3,9 @@ import sqlite3
 import datetime
 
 app = Flask(__name__)
+
+flag = 1
+
 @app.route("/",methods=["POST","GET"])
 def index():
     return(render_template("index.html"))
@@ -13,14 +16,16 @@ def foodexp():
 
 @app.route("/main", methods=["POST", "GET"])
 def main():
-    t = datetime.datetime.now()
-    user_name = request.form.get("q")
-    conn = sqlite3.connect('user.db')
-    c = conn.cursor()
-    c.execute("insert into user(name,timestamp) values (?,?) ",(user_name,t))
-    conn.commit()
-    c.close()
-    conn.close
+    global flag
+    if flag==1:
+        t = datetime.datetime.now()
+        user_name = request.form.get("q")
+        conn = sqlite3.connect('user.db')
+        c = conn.cursor()
+        c.execute("insert into user(name,timestamp) values (?,?) ",(user_name,t))
+        conn.commit()
+        c.close()
+        flag = 0
     return render_template("main.html")
 
 @app.route("/ethical_test",methods=["POST","GET"])
